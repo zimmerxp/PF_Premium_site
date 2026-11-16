@@ -52,6 +52,23 @@
     brandStrip.parentNode.replaceChild(wrap, brandStrip);
   }
 
+  // Palavra rotativa do título (ex.: "projeto", "imóvel"...)
+  document.querySelectorAll('.rotator').forEach(function (box) {
+    var words = box.querySelectorAll('.rotator-word');
+    if (words.length < 2 || reduce) return;
+    var idx = 0;
+    setInterval(function () {
+      var current = words[idx];
+      idx = (idx + 1) % words.length;
+      var next = words[idx];
+      current.classList.remove('is-active');
+      current.classList.add('is-leaving');
+      next.classList.remove('is-leaving');
+      next.classList.add('is-active');
+      setTimeout(function () { current.classList.remove('is-leaving'); }, 900);
+    }, 2800);
+  });
+
   // Contadores numéricos (ex.: <div class="big" data-count="90" data-suffix=" dias">)
   var countUp = function (el) {
     var target = parseFloat(el.getAttribute('data-count'));

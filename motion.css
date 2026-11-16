@@ -193,3 +193,86 @@
   .stat{ border-left:none; border-top:1px solid var(--line-soft); padding:24px 0 0; }
   .stat:first-child{ border-top:none; padding-top:0; }
 }
+
+/* ---------- Fundo metálico premium ---------- */
+@keyframes pf-metal-sheen{
+  0%   { background-position:120% 0, 0 0; }
+  100% { background-position:-30% 0, 0 0; }
+}
+@keyframes pf-metal-text{
+  from { background-position:0% center; }
+  to   { background-position:250% center; }
+}
+@keyframes pf-line-sweep{
+  from { background-position:200% 0; }
+  to   { background-position:-200% 0; }
+}
+
+.hero, .page-hero, .cta-band{ position:relative; isolation:isolate; }
+.hero::before, .page-hero::before, .cta-band::before{
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background-image:
+    linear-gradient(105deg, transparent 38%, rgba(232,211,155,.10) 50%, transparent 62%),
+    url("IMAGENS/textura-metal.jpg");
+  background-size:260% 100%, 512px 512px;
+  background-repeat:no-repeat, repeat;
+  opacity:.75;
+  animation:pf-metal-sheen 14s ease-in-out infinite;
+}
+
+/* Título com brilho de metal dourado */
+.hero h1 em{
+  background-image:linear-gradient(100deg, #8E6B2E 0%, #C9A45C 22%, #FFF4D2 38%, #C9A45C 52%, #8E6B2E 72%, #E8D39B 100%);
+  background-size:250% auto;
+  -webkit-background-clip:text;
+          background-clip:text;
+  color:transparent;
+  animation:pf-metal-text 8s linear infinite;
+}
+
+/* Linha metálica que percorre a borda do cabeçalho */
+.site-header{ position:sticky; }
+.site-header::after{
+  content:""; position:absolute; left:0; right:0; bottom:-1px; height:1px;
+  background:linear-gradient(90deg, transparent 0%, rgba(232,211,155,.9) 50%, transparent 100%);
+  background-size:200% 100%;
+  animation:pf-line-sweep 6s linear infinite;
+  pointer-events:none;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .hero::before, .page-hero::before, .cta-band::before,
+  .hero h1 em, .site-header::after{ animation:none !important; }
+  .hero h1 em{ background:none; color:var(--gold-light); }
+}
+
+/* Palavra rotativa do título */
+.hero h1 .rotator{
+  display:inline-grid;
+  vertical-align:bottom;
+  position:relative;
+}
+.hero h1 .rotator-word{
+  grid-area:1 / 1;
+  display:inline-block;
+  white-space:nowrap;
+  opacity:0;
+  transform:translateY(38%);
+  filter:blur(8px);
+  transition:opacity .8s ease, transform 1s cubic-bezier(.2,.7,.2,1), filter .8s ease;
+  background-image:linear-gradient(100deg, #8E6B2E 0%, #C9A45C 22%, #FFF4D2 38%, #C9A45C 52%, #8E6B2E 72%, #E8D39B 100%);
+  background-size:250% auto;
+  -webkit-background-clip:text;
+          background-clip:text;
+  color:transparent;
+  animation:pf-metal-text 8s linear infinite;
+  padding-bottom:.06em;
+}
+.hero h1 .rotator-word.is-active{ opacity:1; transform:none; filter:blur(0); }
+.hero h1 .rotator-word.is-leaving{ opacity:0; transform:translateY(-38%); filter:blur(8px); }
+
+@media (prefers-reduced-motion: reduce){
+  .hero h1 .rotator-word{ transition:none; filter:none; animation:none; background:none; color:var(--gold-light); }
+  .hero h1 .rotator-word:not(.is-active){ display:none; }
+  .hero h1 .rotator-word.is-active{ opacity:1; transform:none; }
+}
