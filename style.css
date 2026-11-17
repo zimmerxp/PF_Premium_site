@@ -712,3 +712,14 @@ p{ font-weight:300; }
   .site-footer{ padding-top:52px; }
   .footer-grid{ gap:28px; }
 }
+
+/* Cabeçalho e logo: logo maior e menos espaço vertical */
+.nav-wrap{ padding:6px 0; }
+.brand-logo{ height:72px; }
+.footer-brand .brand-logo{ height:104px; }
+.hero .container{ padding-top:44px; padding-bottom:72px; }
+@media (max-width: 720px){
+  .nav-wrap{ padding:4px 0; }
+  .brand-logo{ height:58px; }
+  .hero .container{ padding-top:28px; padding-bottom:40px; }
+}
